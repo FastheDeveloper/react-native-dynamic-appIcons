@@ -3,8 +3,9 @@ import { changeIcon, getIcon, resetIcon } from 'react-native-change-icon';
 import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
 import { ScreenContent } from '~/components/ScreenContent';
-import { StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, Pressable, Alert } from 'react-native';
 import { BareIcon, DrummerIcon, Gutarist, HarpIcon } from '~/svg/Icons';
+import { useState } from 'react';
 
 export const LOGOS = [
   {
@@ -24,13 +25,20 @@ export const LOGOS = [
     iconSvg: <Image source={require('images/HarpIcon.png')} width={120} height={120} />,
   },
 ];
+
 export default function Home() {
+  const [presentIcons, setPresetIcon] = useState('');
   const renderItem = ({ item }: any) => (
     <Pressable
       style={styles.item}
-      onPress={() => {
-        console.log(item.iconName);
-        changeIcon(item.iconName);
+      onPress={async () => {
+        let iconName = await getIcon();
+        console.log(item.iconName, 'fac', iconName);
+        if (item.iconName !== iconName) {
+          changeIcon(item.iconName);
+        } else {
+          Alert.alert("That's your present icon");
+        }
       }}>
       <Text>{item.iconName}</Text>
       {item.iconSvg}
