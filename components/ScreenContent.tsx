@@ -13,7 +13,7 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.separator} />
-      <EditScreenInfo path={path} />
+
       {children}
     </View>
   );
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
   separator: {
     backgroundColor: '#d1d5db',
