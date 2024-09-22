@@ -27,7 +27,6 @@ export const LOGOS = [
 ];
 
 export default function Home() {
-  const [presentIcons, setPresetIcon] = useState('');
   const renderItem = ({ item }: any) => (
     <Pressable
       style={styles.item}
