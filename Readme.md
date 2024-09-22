@@ -53,6 +53,28 @@ This repository demonstrates a practical implementation of dynamic app icon chan
    `ios` : Drag all of the .appiconset folders into ios/<app-name>/Images.xcassets
    <img alt="Android folder" src="./images/iosDone.png"  />
 
+   ## Environment Setup
+
+   ### `Android`
+
+   1. Add an alias for each of your new icons within the AndroidManifest.xml (within <application>).
+
+      - Make sure these have the properties as shown below.
+      - Create an alias for .MainActivityDefault as well but for this, set android:enabled="true".
+      - For the name prefix it .MainActivity... followed by the name you will use to reference your icon. e.g. for our HarpIcons icon we will use .MainActivityHarpIcons
+
+        <img alt="Android Manifest" src="./images/AndoridManifest.png"  />
+
+   2. At the bottom of your Info.plist insert a key for CFBundleIcons.
+      Within this dictionary add another key for CFBundleAlternateIcons
+      In XCode, in your app's General settings, under App Icons and Launch Screen, set "App Icon" to Default and check the "Include all app icon assets" checkbox below.
+      Finally then within this dictionary you can add in the keys for you new icons
+
+      - The key is the name you will reference from within code.
+      - Set the first array item to the name of the .appiconset we created earlier.
+
+        <img alt="Android Manifest" src="./images/iosInfoPlist.png"  />
+
 ## Usage
 
 - Basic implementation example.
