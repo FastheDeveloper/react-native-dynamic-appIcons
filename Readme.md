@@ -47,6 +47,7 @@ This repository demonstrates a practical implementation of dynamic app icon chan
    - Edit Contents.json and change the `Assets.xcassets/AppIcon.appiconset` to new Icon name e.g. `Images.xcassets/HarpIcons.appiconset`
 
    **REPEAT ABOVE STEPS FOR ALL OTHER ICONS**
+
    `Android`: Drag all of the mipmap folders into android/app/src/main/res/
    <img alt="Android folder" src="./images/AndroidDone.png"  />
 
@@ -65,44 +66,74 @@ This repository demonstrates a practical implementation of dynamic app icon chan
 
         <img alt="Android Manifest" src="./images/AndoridManifest.png"  />
 
-   2. At the bottom of your Info.plist insert a key for CFBundleIcons.
-      Within this dictionary add another key for CFBundleAlternateIcons
-      In XCode, in your app's General settings, under App Icons and Launch Screen, set "App Icon" to Default and check the "Include all app icon assets" checkbox below.
-      Finally then within this dictionary you can add in the keys for you new icons
+   ### `ios`
+
+   1. At the bottom of your Info.plist insert a key for CFBundleIcons.
+   2. Within this dictionary add another key for CFBundleAlternateIcons
+   3. In XCode, in your app's General settings, under App Icons and Launch Screen, set "App Icon" to Default and check the "Include all app icon assets" checkbox below.
+   4. Finally then within this dictionary you can add in the keys for you new icons
 
       - The key is the name you will reference from within code.
       - Set the first array item to the name of the .appiconset we created earlier.
 
-        <img alt="Android Manifest" src="./images/iosInfoPlist.png"  />
+     <img alt="Android Manifest" src="./images/iosInfoPlist.png"  />
 
 ## Usage
 
-- Basic implementation example.
-- API reference
+To use the changeIcon functionality, simply import it along with any other required methods from the library:
 
-## Platform-specific considerations
+```typescript
+import { changeIcon, getIcon, resetIcon } from 'react-native-change-icon';
 
-### iOS
+// Pass the name of icon to be enabled
+changeIcon('HarpIcons');
+```
 
-- Key setup steps
-- Limitations
+That's it! You can now seamlessly change icons based on your implementation logic.
 
-### Android
+## Troubleshooting and Common Issues
 
-- Key setup steps
-- Limitations
+When implementing react-native-change-icon, especially in an Expo-managed project, you might encounter some challenges. Here are solutions to common problems:
 
-## Contributing
+1. Accessing Native iOS and Android Files in Expo
+   **Problem**: Expo-managed projects don't have direct access to native iOS and Android files by default.
+   **Solution**: Use the prebuild command to generate native projects:
 
-- Guidelines for contributions
-- Issue reporting
+```bash
+expo prebuild
+```
 
-## License
+This command creates ios and android folders in your project, allowing you to modify native files as needed for icon changing functionality.
+Note: After running prebuild, your project becomes an Expo "bare" workflow project. Be sure to commit these changes to version control.
 
-- License type
+2. Testing Production Builds on iOS
+   **Problem**: Testing icon changing in a production environment on iOS requires a release build.
+   **Solution**: Use the following command to create and run a release build on an iOS device:
 
-## Acknowledgements
+```bash
+npx expo run:ios --configuration Release --device
+```
 
-- Credits and attributions
+This command:
+Builds your app in release configuration
+Installs it on a connected iOS device
+Allows you to test icon changing functionality in a production-like environment
 
-Would you like me to elaborate on any of these sections or add more details to the README?
+3. Testing Production Builds on Android
+   **Problem**: Testing icon changing in a production environment on Android requires a release APK.
+   **Solution**: Follow these steps to create and test a release APK
+
+- Navigate to the android directory in your project:
+
+```bash
+cd android
+```
+
+- Run the Gradle task to assemble the release APK:
+
+```bash
+./gradlew assembleRelease
+```
+
+- The APK will be generated in `android/app/build/outputs/apk/release/app-release.apk`
+  Install the APK on your Android device or emulator to test the icon changing functionality in a production environment.
